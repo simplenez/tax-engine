@@ -1,10 +1,8 @@
 package com.example.taxengine;
 
-import com.example.taxengine.model.Response;
+import com.example.taxengine.model.TaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -20,9 +18,10 @@ public class TaxController {
     }
 
     @GetMapping("/tax/{year}/{income}")
-    public Response calculateTax(@PathVariable int year, @PathVariable BigDecimal income) {
+    @CrossOrigin(origins = "http://localhost:3000", methods = RequestMethod.GET)
+    public TaxResult calculateTax(@PathVariable int year, @PathVariable BigDecimal income) {
         BigDecimal tax = taxCalculatorService.calculate(year, income);
-        return new Response(income.setScale(2, RoundingMode.HALF_EVEN), tax);
+        return new TaxResult(year, income.setScale(2, RoundingMode.HALF_EVEN), tax);
     }
 
 }

@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.taxengine.Utils.toBigDecimal;
 import static com.example.taxengine.model.Bracket.build;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -100,10 +100,6 @@ class TaxCalculatorServiceTest {
 
         assertEquals(toBigDecimal(5_000.0), tcs.calculate(YEAR_2020, BigDecimal.valueOf(150_000)));
         assertEquals(toBigDecimal(7_187.50), tcs.calculate(year_2019, BigDecimal.valueOf(150_000)));
-    }
-
-    private static BigDecimal toBigDecimal(double val) {
-        return BigDecimal.valueOf(val).setScale(2, RoundingMode.HALF_EVEN);
     }
 
     private static TaxCalculatorService createYear2020TCS(double defaultTaxRate, Bracket... brackets) {

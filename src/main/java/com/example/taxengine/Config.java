@@ -12,7 +12,6 @@ import java.util.Map;
 import static com.example.taxengine.model.Bracket.build;
 
 @Configuration
-@ComponentScan("com.example.taxengine.model")
 public class Config {
 
     @Bean
